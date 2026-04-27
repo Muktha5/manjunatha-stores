@@ -75,10 +75,19 @@ async function fetchProducts() {
     try {
         const res = await fetch(SHEET_URL);
         const data = await res.text();
-        const rows = data.split("\n").slice(1);
+        // This part splits the sheet into rows
+        const rows = data.split("\n").slice(1); 
         products = rows.map(row => {
-            const [name, price, unit, cat, badge, img] = row.split(",");
-            return { name, price: parseFloat(price), unit, cat: cat?.trim(), badge, img };
+            // This part handles commas correctly
+            const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); 
+            return { 
+                name: cols[0]?.replace(/"/g, ''), 
+                price: parseFloat(cols[1]), 
+                unit: cols[2]?.replace(/"/g, ''), 
+                cat: cols[3]?.trim().replace(/"/g, ''), 
+                badge: cols[4]?.replace(/"/g, ''), 
+                img: cols[5]?.trim().replace(/"/g, '') // Column F
+            };
         }).filter(p => p.name);
         render();
     } catch (e) {
