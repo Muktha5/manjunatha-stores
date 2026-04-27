@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Manjunatha Stores | Fresh Grocery</title>
+    <title>Manjunatha Stores | Fresh Grocery Bengaluru</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #0c831f; --primary-light: #e8f5e9; --secondary: #ffce00; --text-main: #1c1c1c; --bg: #f4f7f4; --white: #ffffff; --shadow: 0 4px 12px rgba(0,0,0,0.07); }
@@ -24,14 +24,15 @@
         .card h3 { font-size: 13px; font-weight: 600; height: 38px; overflow: hidden; margin: 0; }
         .stepper { display: flex; justify-content: space-between; align-items: center; background: var(--primary-light); border-radius: 10px; border: 1px solid var(--primary); margin-top: auto; height: 36px; }
         .stepper button { width: 40px; border: none; background: none; color: var(--primary); font-size: 20px; font-weight: 600; cursor: pointer; }
-        .cart-footer { position: fixed; bottom: 15px; left: 15px; right: 15px; background: var(--primary); border-radius: 16px; padding: 12px 20px; display: none; flex-direction: column; color: white; z-index: 2000; }
+        .footer-info { padding: 30px 20px; text-align: center; background: #fff; margin-top: 20px; border-top: 1px solid #eee; }
+        .cart-footer { position: fixed; bottom: 15px; left: 15px; right: 15px; background: var(--primary); border-radius: 16px; padding: 12px 20px; display: none; flex-direction: column; color: white; z-index: 2000; cursor: pointer; }
         .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: 5px 0; }
         .progress-fill { height: 100%; background: var(--secondary); transition: width 0.3s; }
     </style>
 </head>
 <body>
 
-<div class="top-banner">✨ FREE DELIVERY ON ALL ORDERS ABOVE ₹199 ✨</div>
+<div class="top-banner">✨ FREE DELIVERY ON ALL ORDERS ABOVE ₹199 (ELSE ₹10) ✨</div>
 
 <header>
     <div class="brand">🛒 MANJUNATHA STORES</div>
@@ -51,6 +52,11 @@
     <p style="text-align:center; padding:20px;">Loading fresh prices...</p>
 </div>
 
+<div class="footer-info">
+    <div style="font-weight: 700; color: var(--primary);">📍 BENGALURU BRANCH</div>
+    <p style="font-size: 12px; color: #666; margin: 5px 0;">Manjunatha Stores, Bengaluru</p>
+</div>
+
 <div class="cart-footer" id="cartBar" onclick="orderWhatsApp()">
     <div style="font-size: 10px; text-align: center;" id="deliveryMsg">Add items to order</div>
     <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
@@ -64,7 +70,6 @@
 </div>
 
 <script>
-// --- STEP 1: PASTE YOUR GOOGLE SHEET CSV LINK HERE ---
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/1eQJax1teQDiEgA4UnLtxeSMmWTnI4dIVAZiaIJzu1nU/export?format=csv";
 
 let products = [];
@@ -74,32 +79,28 @@ let currentCat = 'all';
 async function fetchProducts() {
     try {
         const res = await fetch(SHEET_URL);
-        const data = await res.text();
-        // This part splits the sheet into rows
-        const rows = data.split("\n").slice(1); 
-     products = rows.map(row => {
+        const text = await res.text();
+        const rows = text.replace(/\r/g, '').split('\n').slice(1); 
+        
+        products = rows.map(row => {
             const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); 
             return { 
                 name: cols[0]?.replace(/"/g, '').trim(), 
                 price: parseFloat(cols[1]), 
                 unit: cols[2]?.replace(/"/g, '').trim(), 
                 cat: cols[3]?.replace(/"/g, '').trim(), 
-                badge: cols[4]?.replace(/"/g, '').trim(), // This is Column E
-                img: cols[5]?.replace(/"/g, '').trim()   // This is Column F
+                badge: cols[4]?.replace(/"/g, '').trim(),
+                img: cols[5]?.replace(/"/g, '').trim()
             };
-        }).filter(p => p.name);
+        }).filter(p => p.name && !isNaN(p.price));
         render();
-    } catch (e) {
-        console.error("Failed to load products", e);
-    }
+    } catch (e) { console.error("Sheet failed", e); }
 }
 
 function render() {
     const container = document.getElementById("products-container");
     container.innerHTML = "";
     const searchVal = document.getElementById('search').value.toLowerCase();
-    
-    // Logic to handle "Dairy & Grocery" tab vs "Dairy" data category
     const categories = currentCat === 'all' ? ["Fruits", "Vegetables", "Dairy"] : [currentCat === "Dairy & Grocery" ? "Dairy" : currentCat];
 
     categories.forEach(category => {
@@ -112,7 +113,7 @@ function render() {
         grid.innerHTML = items.map(p => {
             const qty = cart[p.name] || 0;
             return `
-                <div class="card">
+                <div class="card" onclick="changeQty('${p.name}', 1)">
                     ${p.badge ? `<div class="badge">${p.badge}</div>` : ''}
                     <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150?text=Fresh'">
                     <h3>${p.name}</h3>
@@ -138,20 +139,28 @@ function changeQty(name, delta) {
 }
 
 function updateCart() {
-    let total = 0, count = 0;
+    let itemTotal = 0, count = 0;
     for (let n in cart) {
         const p = products.find(x => x.name === n);
-        total += p.price * cart[n];
+        itemTotal += p.price * cart[n];
         count += cart[n];
     }
+    
     const bar = document.getElementById("cartBar");
     bar.style.display = count > 0 ? "flex" : "none";
-    document.getElementById("totalLabel").innerText = "₹" + total;
+    
+    // Delivery Charge Logic
+    const deliveryCharge = itemTotal >= 199 ? 0 : 10;
+    const grandTotal = itemTotal + deliveryCharge;
+
+    document.getElementById("totalLabel").innerText = "₹" + grandTotal;
     document.getElementById("countLabel").innerText = count + " ITEMS";
     
-    let prog = (total / 199) * 100;
+    let prog = (itemTotal / 199) * 100;
     document.getElementById("progFill").style.width = Math.min(prog, 100) + "%";
-    document.getElementById("deliveryMsg").innerText = total >= 199 ? "🎉 FREE DELIVERY UNLOCKED" : `Add ₹${(199 - total).toFixed(0)} for Free Delivery`;
+    document.getElementById("deliveryMsg").innerText = itemTotal >= 199 ? 
+        "🎉 FREE DELIVERY UNLOCKED" : 
+        `Add ₹${(199 - itemTotal).toFixed(0)} for Free Delivery (Else ₹10)`;
 }
 
 function filterCat(cat, el) {
@@ -162,14 +171,24 @@ function filterCat(cat, el) {
 }
 
 function orderWhatsApp() {
-    let text = "🛒 *New Order from Manjunatha Stores*%0A---------------------------%0A";
-    let total = 0;
+    let text = "🛒 *NEW ORDER - MANJUNATHA STORES BENGALURU*%0A";
+    text += "---------------------------%0A";
+    let subtotal = 0;
     for (let name in cart) {
         const p = products.find(x => x.name === name);
-        text += `• ${name} x ${cart[name]} = ₹${p.price * cart[name]}%0A`;
-        total += p.price * cart[name];
+        let itemPrice = p.price * cart[name];
+        text += `• ${name} x ${cart[name]} = ₹${itemPrice}%0A`;
+        subtotal += itemPrice;
     }
-    text += `---------------------------%0A💰 *Grand Total: ₹${total}*`;
+    
+    const delivery = subtotal >= 199 ? 0 : 10;
+    text += "---------------------------%0A";
+    text += `Items Total: ₹${subtotal}%0A`;
+    text += `Delivery Charge: ₹${delivery}%0A`;
+    text += `*Grand Total: ₹${subtotal + delivery}*%0A`;
+    text += "---------------------------%0A";
+    text += "%0A📍 *Deliver to:* [Your Name/Address in Bengaluru]";
+    
     window.open(`https://wa.me/919060020012?text=${text}`);
 }
 
