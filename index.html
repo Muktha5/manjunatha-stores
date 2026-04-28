@@ -16,12 +16,13 @@
             --bg: #f8faf8; 
             --white: #ffffff; 
             --shadow: 0 4px 15px rgba(0,0,0,0.06); 
+            --mango: linear-gradient(135deg, #ff9a00 0%, #ffce00 100%);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Poppins', sans-serif; }
         body { margin: 0; background: var(--bg); color: var(--text-main); padding-bottom: 140px; line-height: 1.4; }
 
-        /* Premium Header */
+        /* Banner & Header */
         .top-banner { background: var(--secondary); color: #000; text-align: center; padding: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
         header { background: var(--white); padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-bottom: 1px solid #eee; }
         .brand { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
@@ -32,51 +33,43 @@
         }
         .search-box input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px var(--primary-light); }
 
+        /* Mango Seasonal Banner */
+        .mango-banner {
+            background: var(--mango); margin: 15px; padding: 20px; border-radius: 20px; 
+            display: flex; align-items: center; justify-content: space-between; color: #fff; 
+            box-shadow: 0 8px 20px rgba(255, 154, 0, 0.3); position: relative; overflow: hidden; cursor: pointer;
+        }
+        .mango-banner::after { content: '🥭'; position: absolute; right: -10px; bottom: -10px; font-size: 80px; opacity: 0.2; transform: rotate(-15deg); }
+        .mango-text h2 { margin: 0; font-size: 18px; font-weight: 800; }
+        .mango-text p { margin: 4px 0 0; font-size: 12px; font-weight: 600; opacity: 0.9; }
+        .mango-btn { background: #fff; color: #ff9a00; padding: 8px 15px; border-radius: 10px; font-size: 11px; font-weight: 800; z-index: 1; }
+
         /* Navigation */
-        .category-tabs { display: flex; overflow-x: auto; padding: 15px 20px; gap: 12px; scrollbar-width: none; }
-        .tab { padding: 10px 22px; background: var(--white); border-radius: 25px; white-space: nowrap; font-size: 13px; font-weight: 600; box-shadow: var(--shadow); cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
+        .category-tabs { display: flex; overflow-x: auto; padding: 5px 15px 15px; gap: 10px; scrollbar-width: none; }
+        .category-tabs::-webkit-scrollbar { display: none; }
+        .tab { padding: 10px 20px; background: var(--white); border-radius: 25px; white-space: nowrap; font-size: 13px; font-weight: 600; box-shadow: var(--shadow); cursor: pointer; border: 1px solid transparent; }
         .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
 
         /* Product Grid */
-        .section-title { padding: 20px 20px 10px; font-size: 19px; font-weight: 700; color: #333; }
+        .section-title { padding: 20px 20px 10px; font-size: 18px; font-weight: 700; color: #333; }
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 15px; }
-        .card { background: var(--white); border-radius: 20px; padding: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform 0.2s; }
-        .card:active { transform: scale(0.97); }
-        
-        .badge { position: absolute; top: 12px; left: 12px; background: var(--secondary); font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 120px; object-fit: contain; margin-bottom: 10px; border-radius: 12px; }
-        .card h3 { font-size: 14px; font-weight: 600; height: 42px; margin: 0 0 5px; color: #111; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        
-        .price-container { margin-bottom: 12px; }
-        .price-main { font-weight: 700; font-size: 16px; color: #000; }
-        .price-sub { font-size: 11px; color: var(--text-muted); margin-left: 2px; }
+        .card { background: var(--white); border-radius: 20px; padding: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; position: relative; }
+        .badge { position: absolute; top: 10px; left: 10px; background: var(--secondary); font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 5px; z-index: 2; }
+        .card img { width: 100%; height: 110px; object-fit: contain; margin-bottom: 10px; border-radius: 12px; }
+        .card h3 { font-size: 13px; font-weight: 600; height: 38px; margin: 0 0 5px; color: #111; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .price-main { font-weight: 700; font-size: 15px; color: #000; }
+        .price-sub { font-size: 10px; color: var(--text-muted); }
 
-        /* Stepper Button */
-        .stepper { display: flex; justify-content: space-between; align-items: center; background: var(--primary-light); border-radius: 12px; border: 1px solid var(--primary); height: 40px; overflow: hidden; }
-        .stepper button { width: 45px; height: 100%; border: none; background: none; color: var(--primary); font-size: 22px; font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .stepper button:active { background: var(--primary); color: #fff; }
-        .stepper span { font-weight: 700; color: var(--primary); font-size: 14px; }
+        /* Stepper */
+        .stepper { display: flex; justify-content: space-between; align-items: center; background: var(--primary-light); border-radius: 12px; border: 1px solid var(--primary); height: 38px; margin-top: 10px; }
+        .stepper button { width: 40px; height: 100%; border: none; background: none; color: var(--primary); font-size: 20px; font-weight: 700; cursor: pointer; }
+        .stepper span { font-weight: 700; color: var(--primary); font-size: 13px; }
 
-        /* Cart Floating Footer */
-        .cart-footer { 
-            position: fixed; bottom: 20px; left: 20px; right: 20px; 
-            background: var(--primary); border-radius: 20px; padding: 15px 22px; 
-            display: none; flex-direction: column; color: white; 
-            z-index: 2000; box-shadow: 0 10px 30px rgba(12, 131, 31, 0.4);
-            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes slideUp { from { transform: translateY(100px); } to { transform: translateY(0); } }
-        
-        .progress-bar { width: 100%; height: 5px; background: rgba(255,255,255,0.15); border-radius: 10px; margin: 8px 0 12px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--secondary); transition: width 0.5s ease-out; }
-        
-        .address-input { 
-            width: 100%; padding: 10px; border-radius: 8px; border: none; margin-bottom: 12px; 
-            font-size: 13px; color: #111; outline: none;
-        }
-
-        .footer-info { padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 13px; }
-
+        /* Cart Footer */
+        .cart-footer { position: fixed; bottom: 20px; left: 15px; right: 15px; background: var(--primary); border-radius: 20px; padding: 15px 20px; display: none; flex-direction: column; color: white; z-index: 2000; box-shadow: 0 10px 30px rgba(12, 131, 31, 0.4); }
+        .address-input { width: 100%; padding: 10px; border-radius: 10px; border: none; margin-bottom: 10px; font-size: 12px; }
+        .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 10px; margin-bottom: 10px; }
+        .progress-fill { height: 100%; background: var(--secondary); transition: 0.4s; }
     </style>
 </head>
 <body>
@@ -86,102 +79,98 @@
 <header>
     <div class="brand">🛒 MANJUNATHA STORES</div>
     <div class="search-box">
-        <input type="text" id="search" placeholder="Search for fresh items..." oninput="render()">
+        <input type="text" id="search" placeholder="Search mango, milk, tomato..." oninput="render()">
     </div>
 </header>
+
+<div class="mango-banner" onclick="document.getElementById('search').value='Mango'; render();">
+    <div class="mango-text">
+        <h2>King of Fruits is Here! 🥭</h2>
+        <p>Sweet & Fresh Mangoes starts at ₹99</p>
+    </div>
+    <div class="mango-btn">SHOP NOW</div>
+</div>
 
 <div class="category-tabs" id="tabBar">
     <div class="tab active" onclick="filterCat('all', this)">All</div>
     <div class="tab" onclick="filterCat('Fruits', this)">🍎 Fruits</div>
-    <div class="tab" onclick="filterCat('Vegetables', this)">🥦 Vegetables</div>
+    <div class="tab" onclick="filterCat('Vegetables', this)">🥦 Veggies</div>
+    <div class="tab" onclick="filterCat('Green Leafy', this)">🌿 Greens</div>
     <div class="tab" onclick="filterCat('Dairy', this)">🥛 Dairy</div>
+    <div class="tab" onclick="filterCat('Spices', this)">🌶️ Spices</div>
+    <div class="tab" onclick="filterCat('Biscuits', this)">🍪 Biscuits</div>
+    <div class="tab" onclick="filterCat('Eggs', this)">🥚 Eggs</div>
+    <div class="tab" onclick="filterCat('Water', this)">💧 Water</div>
 </div>
 
-<div id="products-container">
-    <div style="text-align:center; padding:50px; color:#999;">Loading fresh items...</div>
-</div>
-
-<div class="footer-info">
-    <div style="font-weight: 800; color: var(--primary); font-size: 16px; margin-bottom: 5px;">MANJUNATHA STORES</div>
-    📍 Subramanyanagar Main Road, A Block, Rajajinagar, Bengaluru - 560010<br>
-    <span style="font-size: 11px; margin-top: 10px; display: block;">Built for quality & speed.</span>
-</div>
+<div id="products-container"></div>
 
 <div class="cart-footer" id="cartBar">
-    <div style="font-size: 11px; font-weight: 600; text-align: center; margin-bottom: 5px;" id="deliveryMsg"></div>
+    <div id="deliveryMsg" style="font-size: 11px; text-align: center; margin-bottom: 5px; font-weight: 600;"></div>
     <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
-    
-    <input type="text" id="userName" class="address-input" placeholder="Your Name" required>
-    <input type="text" id="userAddress" class="address-input" placeholder="Delivery Address (Flat / House No)" required>
-
+    <input type="text" id="userName" class="address-input" placeholder="Your Name">
+    <input type="text" id="userAddress" class="address-input" placeholder="House No / Street Name">
     <div style="display:flex; justify-content:space-between; align-items:center;" onclick="orderWhatsApp()">
         <div>
-            <div style="font-size: 20px; font-weight: 800;" id="totalLabel">₹0</div>
-            <div style="font-size: 11px; font-weight: 600; opacity: 0.9;" id="countLabel">0 ITEMS</div>
+            <div style="font-size: 18px; font-weight: 800;" id="totalLabel">₹0</div>
+            <div style="font-size: 10px; opacity: 0.9;" id="countLabel">0 ITEMS</div>
         </div>
-        <div style="font-weight: 700; background: var(--secondary); color: #000; padding: 10px 18px; border-radius: 12px; font-size: 14px;">PLACE ORDER ➔</div>
+        <div style="font-weight: 700; background: var(--secondary); color: #000; padding: 10px 15px; border-radius: 12px; font-size: 13px;">PLACE ORDER ➔</div>
     </div>
 </div>
 
 <script>
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/1eQJax1teQDiEgA4UnLtxeSMmWTnI4dIVAZiaIJzu1nU/export?format=csv";
-
-let products = [];
-let cart = {};
-let currentCat = 'all';
+let products = [], cart = {}, currentCat = 'all';
 
 async function fetchProducts() {
     try {
         const res = await fetch(SHEET_URL);
         const text = await res.text();
-        const rows = text.replace(/\r/g, '').split('\n').slice(1); 
-        
+        const rows = text.split('\n').slice(1);
         products = rows.map(row => {
-            const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); 
-            return { 
-                name: cols[0]?.replace(/"/g, '').trim(), 
-                price: parseFloat(cols[1]), 
-                unit: cols[2]?.replace(/"/g, '').trim(), 
-                cat: cols[3]?.replace(/"/g, '').trim(), 
-                badge: cols[4]?.replace(/"/g, '').trim(),
-                img: cols[5]?.replace(/"/g, '').trim()
+            const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            return {
+                name: cols[0]?.replace(/"/g, '').trim(),
+                price: parseFloat(cols[1]),
+                unit: cols[2]?.trim(),
+                cat: cols[3]?.trim(),
+                badge: cols[4]?.trim(),
+                img: cols[5]?.trim()
             };
         }).filter(p => p.name && !isNaN(p.price));
         render();
-    } catch (e) { 
-        document.getElementById("products-container").innerHTML = `<div style="text-align:center; color:red; padding:20px;">Failed to load products. Check your connection.</div>`;
-    }
+    } catch (e) { console.error("Load failed"); }
 }
 
 function render() {
     const container = document.getElementById("products-container");
     container.innerHTML = "";
     const searchVal = document.getElementById('search').value.toLowerCase();
-    const categories = currentCat === 'all' ? ["Fruits", "Vegetables", "Dairy"] : [currentCat];
+    const cats = currentCat === 'all' ? ["Fruits", "Vegetables", "Green Leafy", "Dairy", "Spices", "Biscuits", "Eggs", "Water"] : [currentCat];
 
-    categories.forEach(category => {
-        const items = products.filter(p => p.cat === category && p.name.toLowerCase().includes(searchVal));
-        if(items.length === 0) return;
+    cats.forEach(c => {
+        const items = products.filter(p => p.cat === c && p.name.toLowerCase().includes(searchVal));
+        if (items.length === 0) return;
 
-        const displayTitle = category === 'Dairy' ? '🥛 Dairy & Essentials' : (category === 'Fruits' ? '🍎 Fresh Fruits' : '🥦 Fresh Vegetables');
-        container.innerHTML += `<div class="section-title">${displayTitle}</div><div class="grid" id="grid-${category}"></div>`;
-        const grid = document.getElementById(`grid-${category}`);
+        let title = c;
+        if(c === 'Green Leafy') title = '🌿 Fresh Green Leaves';
+        if(c === 'Spices') title = '🌶️ Spices & Powders';
         
+        container.innerHTML += `<div class="section-title">${title}</div><div class="grid" id="grid-${c}"></div>`;
+        const grid = document.getElementById(`grid-${c}`);
         grid.innerHTML = items.map(p => {
-            const qty = cart[p.name] || 0;
+            const q = cart[p.name] || 0;
             return `
-                <div class="card" onclick="changeQty('${p.name}', 1)">
+                <div class="card">
                     ${p.badge ? `<div class="badge">${p.badge}</div>` : ''}
                     <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150?text=Fresh'">
                     <h3>${p.name}</h3>
-                    <div class="price-container">
-                        <span class="price-main">₹${p.price}</span>
-                        <span class="price-sub">per ${p.unit}</span>
-                    </div>
+                    <div><span class="price-main">₹${p.price}</span> <span class="price-sub">/${p.unit}</span></div>
                     <div class="stepper">
-                        <button onclick="event.stopPropagation(); changeQty('${p.name}', -1)">−</button>
-                        <span>${qty === 0 ? 'ADD' : qty}</span>
-                        <button onclick="event.stopPropagation(); changeQty('${p.name}', 1)">+</button>
+                        <button onclick="changeQty('${p.name}', -1)">−</button>
+                        <span>${q === 0 ? 'ADD' : q}</span>
+                        <button onclick="changeQty('${p.name}', 1)">+</button>
                     </div>
                 </div>`;
         }).join('');
@@ -196,27 +185,18 @@ function changeQty(name, delta) {
 }
 
 function updateCart() {
-    let itemTotal = 0, count = 0;
+    let total = 0, count = 0;
     for (let n in cart) {
         const p = products.find(x => x.name === n);
-        itemTotal += p.price * cart[n];
+        total += p.price * cart[n];
         count += cart[n];
     }
-    
     const bar = document.getElementById("cartBar");
     bar.style.display = count > 0 ? "flex" : "none";
-    
-    const deliveryCharge = itemTotal >= 199 ? 0 : 10;
-    const grandTotal = itemTotal + deliveryCharge;
-
-    document.getElementById("totalLabel").innerText = "₹" + grandTotal;
+    document.getElementById("totalLabel").innerText = "₹" + (total + (total >= 199 ? 0 : 10));
     document.getElementById("countLabel").innerText = count + " ITEMS";
-    
-    let prog = (itemTotal / 199) * 100;
-    document.getElementById("progFill").style.width = Math.min(prog, 100) + "%";
-    document.getElementById("deliveryMsg").innerText = itemTotal >= 199 ? 
-        "🎉 YOU GOT FREE DELIVERY!" : 
-        `Add ₹${(199 - itemTotal).toFixed(0)} more for Free Delivery`;
+    document.getElementById("progFill").style.width = Math.min((total/199)*100, 100) + "%";
+    document.getElementById("deliveryMsg").innerText = total >= 199 ? "🎉 FREE DELIVERY UNLOCKED" : `Add ₹${199-total} for Free Delivery`;
 }
 
 function filterCat(cat, el) {
@@ -227,37 +207,12 @@ function filterCat(cat, el) {
 }
 
 function orderWhatsApp() {
-    const name = document.getElementById("userName").value.trim();
-    const address = document.getElementById("userAddress").value.trim();
-
-    if(!name || !address) {
-        alert("Please enter your Name and Address to continue!");
-        return;
-    }
-
-    let text = "🛒 *NEW ORDER - MANJUNATHA STORES*%0A";
-    text += "---------------------------%0A";
-    text += `👤 *Customer:* ${name}%0A`;
-    text += `📍 *Address:* ${address}%0A`;
-    text += "---------------------------%0A";
-    
-    let subtotal = 0;
-    for (let name in cart) {
-        const p = products.find(x => x.name === name);
-        let itemPrice = p.price * cart[name];
-        text += `• ${name} [${cart[name]} ${p.unit}] = ₹${itemPrice}%0A`;
-        subtotal += itemPrice;
-    }
-    
-    const delivery = subtotal >= 199 ? 0 : 10;
-    text += "---------------------------%0A";
-    text += `Items Total: ₹${subtotal}%0A`;
-    text += `Delivery Charge: ₹${delivery}%0A`;
-    text += `*Grand Total: ₹${subtotal + delivery}*%0A`;
-    text += "---------------------------%0A";
-    text += "%0A✅ Please confirm my order!";
-    
-    window.open(`https://wa.me/919060020012?text=${text}`);
+    const n = document.getElementById("userName").value;
+    const a = document.getElementById("userAddress").value;
+    if(!n || !a) return alert("Enter Name & Address");
+    let msg = `🛒 *NEW ORDER*%0A👤 ${n}%0A📍 ${a}%0A--%0A`;
+    for(let i in cart) msg += `• ${i} (${cart[i]})%0A`;
+    window.open(`https://wa.me/919060020012?text=${msg}`);
 }
 
 fetchProducts();
