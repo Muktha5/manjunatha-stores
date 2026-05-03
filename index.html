@@ -142,17 +142,26 @@ function orderWhatsApp() {
     const n = document.getElementById("userName").value;
     const a = document.getElementById("userAddress").value;
     if(!n || !a) return alert("Enter Name & Address");
+    
     let total = 0, list = "";
     for(let i in cart) {
         const p = products.find(x => x.name === i);
-        total += p.price * cart[i];
-        list += `• ${i} (${cart[i]}) = ₹${p.price * cart[i]}%0A`;
+        if (p) {
+            const itemTotal = p.price * cart[i];
+            total += itemTotal;
+            // This line adds the unit (kg/half kg) and the price for each item
+            list += `• ${i} (${cart[i]} x ${p.unit}) = ₹${itemTotal}%0A`;
+        }
     }
+    
     let del = (total >= 199) ? 0 : 10;
     const num = "91906" + "0020012";
-    let msg = `🛒 *NEW ORDER*%0A👤 ${n}%0A📍 ${a}%0A--%0A${list}--%0A💸 *Total: ₹${total + del}*`;
+    
+    let msg = `🛒 *NEW ORDER*%0A👤 *Name:* ${n}%0A📍 *Address:* ${a}%0A%0A*ITEMS:*%0A${list}%0A--%0A💸 *Total: ₹${total + del}* (Incl. Del: ₹${del})`;
+    
     window.open(`https://wa.me/${num}?text=${msg}`);
 }
+
 
 fetchProducts();
 </script>
