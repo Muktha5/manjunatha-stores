@@ -138,11 +138,21 @@ function filterCat(cat, el) {
     render();
 }
 
+function loadSavedDetails() {
+    const savedName = localStorage.getItem("ms_name");
+    const savedAddress = localStorage.getItem("ms_address");
+    if (savedName) document.getElementById("userName").value = savedName;
+    if (savedAddress) document.getElementById("userAddress").value = savedAddress;
+}
+    
 function orderWhatsApp() {
     const n = document.getElementById("userName").value;
     const a = document.getElementById("userAddress").value;
     if(!n || !a) return alert("Enter Name & Address");
-    
+
+    localStorage.setItem("ms_name", n);
+    localStorage.setItem("ms_address", a);
+        
     let total = 0, list = "";
     for(let i in cart) {
         const p = products.find(x => x.name === i);
@@ -164,6 +174,7 @@ function orderWhatsApp() {
 
 
 fetchProducts();
+loadSavedDetails();    
 </script>
 </body>
 </html>
