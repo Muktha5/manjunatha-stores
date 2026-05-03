@@ -190,12 +190,18 @@ function updateCart() {
     let total = 0, count = 0;
     for (let n in cart) {
         const p = products.find(x => x.name === n);
-        total += p.price * cart[n];
-        count += cart[n];
+        if (p) {
+            total += p.price * cart[n];
+            count += cart[n];
+        }
     }
     const bar = document.getElementById("cartBar");
     bar.style.display = count > 0 ? "flex" : "none";
-    document.getElementById("totalLabel").innerText = "₹" + (total + (total >= 199 ? 0 : 10));
+    
+    let deliveryCharge = (total >= 199 || total === 0) ? 0 : 10;
+    let finalAmount = total + deliveryCharge;
+
+    document.getElementById("totalLabel").innerText = "₹" + finalAmount;
     document.getElementById("countLabel").innerText = count + " ITEMS";
     document.getElementById("progFill").style.width = Math.min((total/199)*100, 100) + "%";
     document.getElementById("deliveryMsg").innerText = total >= 199 ? "🎉 FREE DELIVERY UNLOCKED" : `Add ₹${199-total} for Free Delivery`;
@@ -213,13 +219,29 @@ function orderWhatsApp() {
     const a = document.getElementById("userAddress").value;
     if(!n || !a) return alert("Enter Name & Address");
 
-    // Number Hiding Trick
+    let total = 0;
+    let itemsList = "";
+    for(let i in cart) {
+        const p = products.find(x => x.name === i);
+        if (p) {
+            const itemTotal = p.price * cart[i];
+            total += itemTotal;
+            itemsList += `• ${i} (${cart[i]}) = ₹${itemTotal}%0A`;
+        }
+    }
+
+    let deliveryCharge = (total >= 199) ? 0 : 10;
+    let finalAmount = total + deliveryCharge;
+
+    // --- SECURITY FEATURES ---
+    const orderId = "MS-" + Math.floor(1000 + Math.random() * 9000);
+    const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true });
+    
     const _p1 = "91906";
     const _p2 = "0020012";
     const _dest = _p1 + _p2;
 
-    let msg = `🛒 *NEW ORDER*%0A👤 ${n}%0A📍 ${a}%0A--%0A`;
-    for(let i in cart) msg += `• ${i} (${cart[i]})%0A`;
+    let msg = `🧾 *OFFICIAL ORDER: ${orderId}*%0A🕒 ${time}%0A--%0A👤 *Customer:* ${n}%0A📍 *Address:* ${a}%0A%0A*ITEMS:*%0A${itemsList}%0A--%0A💸 *TOTAL BILL: ₹${finalAmount}*%0A_(Includes Delivery: ₹${deliveryCharge})_%0A--%0A⚠️ _Prices verified by system. Please do not edit this message._`;
     
     window.open(`https://wa.me/${_dest}?text=${msg}`);
 }
