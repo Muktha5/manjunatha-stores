@@ -11,113 +11,57 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Manjunatha Stores | Fresh Grocery Bengaluru</title>
+    <title>Manjunatha Stores | Fresh Grocery</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --primary: #0c831f; 
-            --primary-dark: #096317;
-            --primary-light: #e8f5e9; 
-            --secondary: #ffce00; 
-            --text-main: #1c1c1c; 
-            --text-muted: #666;
-            --bg: #f8faf8; 
-            --white: #ffffff; 
-            --shadow: 0 4px 15px rgba(0,0,0,0.06); 
-            --mango: linear-gradient(135deg, #ff9a00 0%, #ffce00 100%);
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Poppins', sans-serif; }
-        body { margin: 0; background: var(--bg); color: var(--text-main); padding-bottom: 140px; line-height: 1.4; }
-
-        .top-banner { background: var(--secondary); color: #000; text-align: center; padding: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-        header { background: var(--white); padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-bottom: 1px solid #eee; }
-        .brand { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-        
-        .search-box input { 
-            width: 100%; padding: 14px 18px; border-radius: 14px; border: 1px solid #e2e8f0; 
-            background: #f1f5f9; font-size: 14px; outline: none; transition: 0.3s;
-        }
-        .search-box input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px var(--primary-light); }
-
-        .mango-banner {
-            background: var(--mango); margin: 15px; padding: 20px; border-radius: 20px; 
-            display: flex; align-items: center; justify-content: space-between; color: #fff; 
-            box-shadow: 0 8px 20px rgba(255, 154, 0, 0.3); position: relative; overflow: hidden; cursor: pointer;
-        }
-        .mango-banner::after { content: '🥭'; position: absolute; right: -10px; bottom: -10px; font-size: 80px; opacity: 0.2; transform: rotate(-15deg); }
-        .mango-text h2 { margin: 0; font-size: 18px; font-weight: 800; }
-        .mango-text p { margin: 4px 0 0; font-size: 12px; font-weight: 600; opacity: 0.9; }
-        .mango-btn { background: #fff; color: #ff9a00; padding: 8px 15px; border-radius: 10px; font-size: 11px; font-weight: 800; z-index: 1; }
-
-        .category-tabs { display: flex; overflow-x: auto; padding: 5px 15px 15px; gap: 10px; scrollbar-width: none; }
-        .category-tabs::-webkit-scrollbar { display: none; }
-        .tab { padding: 10px 20px; background: var(--white); border-radius: 25px; white-space: nowrap; font-size: 13px; font-weight: 600; box-shadow: var(--shadow); cursor: pointer; border: 1px solid transparent; }
-        .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-        .section-title { padding: 20px 20px 10px; font-size: 18px; font-weight: 700; color: #333; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 15px; }
-        .card { background: var(--white); border-radius: 20px; padding: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; position: relative; }
-        .badge { position: absolute; top: 10px; left: 10px; background: var(--secondary); font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 5px; z-index: 2; }
-        .card img { width: 100%; height: 110px; object-fit: contain; margin-bottom: 10px; border-radius: 12px; }
-        .card h3 { font-size: 13px; font-weight: 600; height: 38px; margin: 0 0 5px; color: #111; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .price-main { font-weight: 700; font-size: 15px; color: #000; }
-        .price-sub { font-size: 10px; color: var(--text-muted); }
-
-        .stepper { display: flex; justify-content: space-between; align-items: center; background: var(--primary-light); border-radius: 12px; border: 1px solid var(--primary); height: 38px; margin-top: 10px; }
-        .stepper button { width: 40px; height: 100%; border: none; background: none; color: var(--primary); font-size: 20px; font-weight: 700; cursor: pointer; }
-        .stepper span { font-weight: 700; color: var(--primary); font-size: 13px; }
-
-        .cart-footer { position: fixed; bottom: 20px; left: 15px; right: 15px; background: var(--primary); border-radius: 20px; padding: 15px 20px; display: none; flex-direction: column; color: white; z-index: 2000; box-shadow: 0 10px 30px rgba(12, 131, 31, 0.4); }
-        .address-input { width: 100%; padding: 10px; border-radius: 10px; border: none; margin-bottom: 10px; font-size: 12px; }
-        .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 10px; margin-bottom: 10px; }
-        .progress-fill { height: 100%; background: var(--secondary); transition: 0.4s; }
+        :root { --primary: #0c831f; --secondary: #ffce00; --bg: #f8faf8; --white: #ffffff; }
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { margin: 0; background: var(--bg); padding-bottom: 150px; }
+        .top-banner { background: var(--secondary); text-align: center; padding: 10px; font-size: 11px; font-weight: 800; }
+        header { background: var(--white); padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .brand { font-size: 22px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+        .search-box input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f1f5f9; }
+        .category-tabs { display: flex; overflow-x: auto; padding: 15px; gap: 10px; }
+        .tab { padding: 8px 18px; background: var(--white); border-radius: 20px; font-size: 13px; font-weight: 600; white-space: nowrap; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab.active { background: var(--primary); color: white; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
+        .card { background: var(--white); border-radius: 15px; padding: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .card img { width: 100%; height: 100px; object-fit: contain; }
+        .card h3 { font-size: 13px; margin: 10px 0 5px; height: 35px; overflow: hidden; }
+        .price { font-weight: 700; color: #000; }
+        .stepper { display: flex; justify-content: space-between; align-items: center; background: #e8f5e9; border-radius: 8px; margin-top: 10px; border: 1px solid var(--primary); }
+        .stepper button { width: 35px; height: 35px; border: none; background: none; color: var(--primary); font-size: 20px; font-weight: bold; cursor: pointer; }
+        .cart-footer { position: fixed; bottom: 15px; left: 15px; right: 15px; background: var(--primary); border-radius: 15px; padding: 15px; display: none; flex-direction: column; color: white; z-index: 2000; }
+        .address-input { width: 100%; padding: 8px; border-radius: 8px; border: none; margin-bottom: 8px; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<div class="top-banner">🚚 FREE DELIVERY ON ALL ORDERS ABOVE ₹199</div>
-
+<div class="top-banner">🚚 FREE DELIVERY ON ORDERS ABOVE ₹199</div>
 <header>
     <div class="brand">🛒 MANJUNATHA STORES</div>
-    <div class="search-box">
-        <input type="text" id="search" placeholder="Search mango, milk, tomato..." oninput="render()">
-    </div>
+    <div class="search-box"><input type="text" id="search" placeholder="Search items..." oninput="render()"></div>
 </header>
-
-<div class="mango-banner" onclick="document.getElementById('search').value='Mango'; render();">
-    <div class="mango-text">
-        <h2>King of Fruits is Here! 🥭</h2>
-        <p>Sweet & Fresh Mangoes starts at ₹99</p>
-    </div>
-    <div class="mango-btn">SHOP NOW</div>
-</div>
 
 <div class="category-tabs" id="tabBar">
     <div class="tab active" onclick="filterCat('all', this)">All</div>
-    <div class="tab" onclick="filterCat('Fruits', this)">🍎 Fruits</div>
-    <div class="tab" onclick="filterCat('Vegetables', this)">🥦 Veggies</div>
-    <div class="tab" onclick="filterCat('Green Leafy', this)">🌿 Greens</div>
-    <div class="tab" onclick="filterCat('Dairy', this)">🥛 Dairy</div>
-    <div class="tab" onclick="filterCat('Spices', this)">🌶️ Spices</div>
-    <div class="tab" onclick="filterCat('Biscuits', this)">🍪 Biscuits</div>
-    <div class="tab" onclick="filterCat('Eggs', this)">🥚 Eggs</div>
-    <div class="tab" onclick="filterCat('Water', this)">💧 Water</div>
+    <div class="tab" onclick="filterCat('Fruits', this)">Fruits</div>
+    <div class="tab" onclick="filterCat('Vegetables', this)">Veggies</div>
+    <div class="tab" onclick="filterCat('Dairy', this)">Dairy</div>
 </div>
 
-<div id="products-container"></div>
+<div id="products-container" class="grid"></div>
 
 <div class="cart-footer" id="cartBar">
-    <div id="deliveryMsg" style="font-size: 11px; text-align: center; margin-bottom: 5px; font-weight: 600;"></div>
-    <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+    <div id="deliveryMsg" style="font-size: 11px; text-align: center; margin-bottom: 5px;"></div>
     <input type="text" id="userName" class="address-input" placeholder="Your Name">
-    <input type="text" id="userAddress" class="address-input" placeholder="House No / Street Name">
+    <input type="text" id="userAddress" class="address-input" placeholder="Address">
     <div style="display:flex; justify-content:space-between; align-items:center;" onclick="orderWhatsApp()">
         <div>
-            <div style="font-size: 18px; font-weight: 800;" id="totalLabel">₹0</div>
-            <div style="font-size: 10px; opacity: 0.9;" id="countLabel">0 ITEMS</div>
+            <div id="totalLabel" style="font-size: 18px; font-weight: 800;">₹0</div>
+            <div id="countLabel" style="font-size: 10px;">0 ITEMS</div>
         </div>
-        <div style="font-weight: 700; background: var(--secondary); color: #000; padding: 10px 15px; border-radius: 12px; font-size: 13px;">PLACE ORDER ➔</div>
+        <div style="background: var(--secondary); color: #000; padding: 10px; border-radius: 10px; font-weight: 700;">ORDER NOW ➔</div>
     </div>
 </div>
 
@@ -137,7 +81,6 @@ async function fetchProducts() {
                 price: parseFloat(cols[1]),
                 unit: cols[2]?.trim(),
                 cat: cols[3]?.trim(),
-                badge: cols[4]?.trim(),
                 img: cols[5]?.trim()
             };
         }).filter(p => p.name && !isNaN(p.price));
@@ -149,34 +92,23 @@ function render() {
     const container = document.getElementById("products-container");
     container.innerHTML = "";
     const searchVal = document.getElementById('search').value.toLowerCase();
-    const cats = currentCat === 'all' ? ["Fruits", "Vegetables", "Green Leafy", "Dairy", "Spices", "Biscuits", "Eggs", "Water"] : [currentCat];
-
-    cats.forEach(c => {
-        const items = products.filter(p => p.cat === c && p.name.toLowerCase().includes(searchVal));
-        if (items.length === 0) return;
-
-        let title = c;
-        if(c === 'Green Leafy') title = '🌿 Fresh Green Leaves';
-        if(c === 'Spices') title = '🌶️ Spices & Powders';
-        
-        container.innerHTML += `<div class="section-title">${title}</div><div class="grid" id="grid-${c}"></div>`;
-        const grid = document.getElementById(`grid-${c}`);
-        grid.innerHTML = items.map(p => {
-            const q = cart[p.name] || 0;
-            return `
-                <div class="card">
-                    ${p.badge ? `<div class="badge">${p.badge}</div>` : ''}
-                    <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150?text=Fresh'">
-                    <h3>${p.name}</h3>
-                    <div><span class="price-main">₹${p.price}</span> <span class="price-sub">/${p.unit}</span></div>
-                    <div class="stepper">
-                        <button onclick="changeQty('${p.name}', -1)">−</button>
-                        <span>${q === 0 ? 'ADD' : q}</span>
-                        <button onclick="changeQty('${p.name}', 1)">+</button>
-                    </div>
-                </div>`;
-        }).join('');
-    });
+    
+    const items = products.filter(p => (currentCat === 'all' || p.cat === currentCat) && p.name.toLowerCase().includes(searchVal));
+    
+    container.innerHTML = items.map(p => {
+        const q = cart[p.name] || 0;
+        return `
+            <div class="card">
+                <img src="${p.img}" onerror="this.src='https://via.placeholder.com/100'">
+                <h3>${p.name}</h3>
+                <div class="price">₹${p.price} <small>/${p.unit}</small></div>
+                <div class="stepper">
+                    <button onclick="changeQty('${p.name}', -1)">−</button>
+                    <span>${q === 0 ? 'ADD' : q}</span>
+                    <button onclick="changeQty('${p.name}', 1)">+</button>
+                </div>
+            </div>`;
+    }).join('');
 }
 
 function changeQty(name, delta) {
@@ -190,21 +122,13 @@ function updateCart() {
     let total = 0, count = 0;
     for (let n in cart) {
         const p = products.find(x => x.name === n);
-        if (p) {
-            total += p.price * cart[n];
-            count += cart[n];
-        }
+        if (p) { total += p.price * cart[n]; count += cart[n]; }
     }
-    const bar = document.getElementById("cartBar");
-    bar.style.display = count > 0 ? "flex" : "none";
-    
-    let deliveryCharge = (total >= 199 || total === 0) ? 0 : 10;
-    let finalAmount = total + deliveryCharge;
-
-    document.getElementById("totalLabel").innerText = "₹" + finalAmount;
+    document.getElementById("cartBar").style.display = count > 0 ? "flex" : "none";
+    let del = (total >= 199) ? 0 : 10;
+    document.getElementById("totalLabel").innerText = "₹" + (total + del);
     document.getElementById("countLabel").innerText = count + " ITEMS";
-    document.getElementById("progFill").style.width = Math.min((total/199)*100, 100) + "%";
-    document.getElementById("deliveryMsg").innerText = total >= 199 ? "🎉 FREE DELIVERY UNLOCKED" : `Add ₹${199-total} for Free Delivery`;
+    document.getElementById("deliveryMsg").innerText = total >= 199 ? "FREE DELIVERY" : "Add ₹" + (199 - total) + " for Free Delivery";
 }
 
 function filterCat(cat, el) {
@@ -218,32 +142,16 @@ function orderWhatsApp() {
     const n = document.getElementById("userName").value;
     const a = document.getElementById("userAddress").value;
     if(!n || !a) return alert("Enter Name & Address");
-
-    let total = 0;
-    let itemsList = "";
+    let total = 0, list = "";
     for(let i in cart) {
         const p = products.find(x => x.name === i);
-        if (p) {
-            const itemTotal = p.price * cart[i];
-            total += itemTotal;
-            itemsList += `• ${i} (${cart[i]}) = ₹${itemTotal}%0A`;
-        }
+        total += p.price * cart[i];
+        list += `• ${i} (${cart[i]}) = ₹${p.price * cart[i]}%0A`;
     }
-
-    let deliveryCharge = (total >= 199) ? 0 : 10;
-    let finalAmount = total + deliveryCharge;
-
-    // --- SECURITY FEATURES ---
-    const orderId = "MS-" + Math.floor(1000 + Math.random() * 9000);
-    const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true });
-    
-    const _p1 = "91906";
-    const _p2 = "0020012";
-    const _dest = _p1 + _p2;
-
-    let msg = `🧾 *OFFICIAL ORDER: ${orderId}*%0A🕒 ${time}%0A--%0A👤 *Customer:* ${n}%0A📍 *Address:* ${a}%0A%0A*ITEMS:*%0A${itemsList}%0A--%0A💸 *TOTAL BILL: ₹${finalAmount}*%0A_(Includes Delivery: ₹${deliveryCharge})_%0A--%0A⚠️ _Prices verified by system. Please do not edit this message._`;
-    
-    window.open(`https://wa.me/${_dest}?text=${msg}`);
+    let del = (total >= 199) ? 0 : 10;
+    const num = "91906" + "0020012";
+    let msg = `🛒 *NEW ORDER*%0A👤 ${n}%0A📍 ${a}%0A--%0A${list}--%0A💸 *Total: ₹${total + del}*`;
+    window.open(`https://wa.me/${num}?text=${msg}`);
 }
 
 fetchProducts();
